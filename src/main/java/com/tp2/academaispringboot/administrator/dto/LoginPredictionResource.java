@@ -5,9 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AdministratorResource {
-    private Long id;
-    private String name;
-    private String lastName;
+public class LoginPredictionResource {
+    private String password;
     private String email;
 }

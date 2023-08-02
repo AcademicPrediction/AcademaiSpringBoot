@@ -31,11 +31,10 @@ dependencies {
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '3.1.2'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '3.1.2'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-rest', version: '3.1.2'
-    implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.7.0'
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.1.0'
     implementation group: 'org.springdoc', name: 'springdoc-openapi-data-rest', version: '1.7.0'
     implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.1.1'
-
-
+    implementation group: 'org.hibernate.orm', name: 'hibernate-core', version: '6.2.7.Final'
 
 }
 

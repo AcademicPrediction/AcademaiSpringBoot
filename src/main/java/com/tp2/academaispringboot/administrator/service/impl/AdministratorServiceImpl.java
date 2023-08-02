@@ -33,7 +33,6 @@ public class AdministratorServiceImpl implements AdministratorService {
         AdministratorEntity administrator = administratorEntityRepository.findById(id).orElseThrow();
         administrator.setName(administratorEntity.getName());
         administrator.setLastName(administratorEntity.getLastName());
-        administrator.setPassword(administratorEntity.getPassword());
         administrator.setEmail(administratorEntity.getEmail());
         return administratorEntityRepository.save(administrator);
     }

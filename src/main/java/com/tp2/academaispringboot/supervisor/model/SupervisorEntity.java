@@ -35,8 +35,4 @@ public class SupervisorEntity {
     @Column(name = "phone_number", length = 9, nullable = false)
     private String phoneNumber;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "administrator_entity_id", nullable = false)
-    private AdministratorEntity administratorEntity;
-
 }

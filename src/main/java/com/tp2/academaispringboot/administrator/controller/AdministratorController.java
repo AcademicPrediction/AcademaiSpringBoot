@@ -2,6 +2,7 @@ package com.tp2.academaispringboot.administrator.controller;
 
 import com.tp2.academaispringboot.administrator.dto.AdministratorResource;
 import com.tp2.academaispringboot.administrator.dto.CreateAdministratorResource;
+import com.tp2.academaispringboot.administrator.dto.LoginPredictionResource;
 import com.tp2.academaispringboot.administrator.dto.UpdateAdministratorResource;
 import com.tp2.academaispringboot.administrator.mapping.AdministratorMapper;
 import com.tp2.academaispringboot.administrator.service.AdministratorService;
@@ -40,16 +41,17 @@ public class AdministratorController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the Administrator"),
             @ApiResponse(responseCode = "404", description = "Administrator not found")})
-    @GetMapping("/login")
-    public AdministratorResource loginAdministrator(String email, String password) {
-        return administratorMapper.toResource(administratorService.loginAdministrator(email, password));
+    @PostMapping("/login")
+    public AdministratorResource loginAdministrator(LoginPredictionResource loginPredictionResource) {
+        return administratorMapper.toResource(administratorService.loginAdministrator(loginPredictionResource.getEmail(),
+                loginPredictionResource.getPassword()));
     }
 
     @Operation(summary = "Create Administrator", description = "Create Administrator")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Created Administrator"),
             @ApiResponse(responseCode = "404", description = "Administrator not created")})
-    @GetMapping("/create")
+    @PostMapping("/create")
     public AdministratorResource createAdministrator(CreateAdministratorResource createAdministratorResource) {
         return administratorMapper.toResource(administratorService.createAdministrator(administratorMapper.toEntity(createAdministratorResource)));
     }
@@ -58,7 +60,7 @@ public class AdministratorController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Updated Administrator"),
             @ApiResponse(responseCode = "404", description = "Administrator not updated")})
-    @GetMapping("/{id}")
+    @PutMapping("/{id}")
     public AdministratorResource updateAdministrator(@PathVariable(name = "id") Long id, UpdateAdministratorResource updateAdministratorResource) {
         return administratorMapper.toResource(administratorService.updateAdministrator(id,
                 administratorMapper.toEntity(updateAdministratorResource)));
