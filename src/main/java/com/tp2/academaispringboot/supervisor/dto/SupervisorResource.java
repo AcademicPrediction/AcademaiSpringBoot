@@ -12,6 +12,7 @@ public class SupervisorResource {
     private String lastName;
     private String email;
     private String dni;
+    private String password;
     private String phoneNumber;
 
 }

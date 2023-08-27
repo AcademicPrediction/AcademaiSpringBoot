@@ -42,7 +42,7 @@ public class AdministratorController {
             @ApiResponse(responseCode = "200", description = "Found the Administrator"),
             @ApiResponse(responseCode = "404", description = "Administrator not found")})
     @PostMapping("/login")
-    public AdministratorResource loginAdministrator(LoginPredictionResource loginPredictionResource) {
+    public AdministratorResource loginAdministrator(@RequestBody LoginPredictionResource loginPredictionResource) {
         return administratorMapper.toResource(administratorService.loginAdministrator(loginPredictionResource.getEmail(),
                 loginPredictionResource.getPassword()));
     }
@@ -52,7 +52,7 @@ public class AdministratorController {
             @ApiResponse(responseCode = "200", description = "Created Administrator"),
             @ApiResponse(responseCode = "404", description = "Administrator not created")})
     @PostMapping("/create")
-    public AdministratorResource createAdministrator(CreateAdministratorResource createAdministratorResource) {
+    public AdministratorResource createAdministrator(@RequestBody CreateAdministratorResource createAdministratorResource) {
         return administratorMapper.toResource(administratorService.createAdministrator(administratorMapper.toEntity(createAdministratorResource)));
     }
 
@@ -61,7 +61,7 @@ public class AdministratorController {
             @ApiResponse(responseCode = "200", description = "Updated Administrator"),
             @ApiResponse(responseCode = "404", description = "Administrator not updated")})
     @PutMapping("/{id}")
-    public AdministratorResource updateAdministrator(@PathVariable(name = "id") Long id, UpdateAdministratorResource updateAdministratorResource) {
+    public AdministratorResource updateAdministrator(@PathVariable(name = "id") Long id, @RequestBody UpdateAdministratorResource updateAdministratorResource) {
         return administratorMapper.toResource(administratorService.updateAdministrator(id,
                 administratorMapper.toEntity(updateAdministratorResource)));
     }

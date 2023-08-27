@@ -12,4 +12,5 @@ public class UpdateSupervisorResource {
     private String email;
     private String dni;
     private String phoneNumber;
+    private String password;
 }

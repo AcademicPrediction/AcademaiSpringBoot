@@ -42,7 +42,7 @@ public class SupervisorController {
             @ApiResponse(responseCode = "200", description = "Created Supervisor"),
             @ApiResponse(responseCode = "404", description = "Supervisor not created")})
     @PostMapping("/create")
-    public SupervisorResource createSupervisor(CreateSupervisorResource supervisorResource) {
+    public SupervisorResource createSupervisor(@RequestBody CreateSupervisorResource supervisorResource) {
         return supervisorMapper.toResource(supervisorService.createSupervisor(supervisorMapper.toEntity(supervisorResource)));
     }
 
@@ -51,7 +51,7 @@ public class SupervisorController {
             @ApiResponse(responseCode = "200", description = "Updated Supervisor"),
             @ApiResponse(responseCode = "404", description = "Supervisor not updated")})
     @PutMapping("/{id}")
-    public SupervisorResource updateSupervisor(@PathVariable(name = "id") Long id, UpdateSupervisorResource supervisorResource) {
+    public SupervisorResource updateSupervisor(@PathVariable(name = "id") Long id, @RequestBody UpdateSupervisorResource supervisorResource) {
         return supervisorMapper.toResource(supervisorService.updateSupervisor(id, supervisorMapper.toEntity(supervisorResource)));
     }
 
@@ -60,7 +60,7 @@ public class SupervisorController {
             @ApiResponse(responseCode = "200", description = "Login Supervisor"),
             @ApiResponse(responseCode = "404", description = "Supervisor not logged in")})
     @PostMapping("/login")
-    public SupervisorResource loginSupervisor(LoginSupervisorResource loginSupervisorResource) {
+    public SupervisorResource loginSupervisor(@RequestBody LoginSupervisorResource loginSupervisorResource) {
         return supervisorMapper.toResource(supervisorService.loginSupervisor(loginSupervisorResource.getEmail(), loginSupervisorResource.getPassword()));
     }
 

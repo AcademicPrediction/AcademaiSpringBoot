@@ -26,6 +26,7 @@ public class SupervisorServiceImpl implements SupervisorService {
         supervisorEntityDB.setEmail(supervisorEntity.getEmail());
         supervisorEntityDB.setDni(supervisorEntity.getDni());
         supervisorEntityDB.setPhoneNumber(supervisorEntity.getPhoneNumber());
+        supervisorEntityDB.setPassword(supervisorEntity.getPassword());
         supervisorEntityDB.setEmail(supervisorEntity.getEmail());
         return supervisorEntityRepository.save(supervisorEntityDB);
     }
