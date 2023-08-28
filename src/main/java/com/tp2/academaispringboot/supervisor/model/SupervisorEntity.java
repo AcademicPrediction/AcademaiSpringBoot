@@ -1,8 +1,12 @@
 package com.tp2.academaispringboot.supervisor.model;
 
 import com.tp2.academaispringboot.administrator.model.AdministratorEntity;
+import com.tp2.academaispringboot.prediction.model.PredictionEntity;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Builder
 @AllArgsConstructor
@@ -34,5 +38,8 @@ public class SupervisorEntity {
 
     @Column(name = "phone_number", length = 9, nullable = false)
     private String phoneNumber;
+
+    @OneToMany(mappedBy = "supervisorEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PredictionEntity> predictions = new ArrayList<>();
 
 }
