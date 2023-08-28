@@ -64,7 +64,7 @@ public class PredictionController {
 
         PredictionEntity predictionEntity = predictionService.createPrediction(predictionMapper.toEntity(createPredictionResource), supervisorId);
 
-        String url = flaskApiUrlParameters;
+        String url = flaskApiUrlParameters + "/generate_excel";
         RestTemplate restTemplate = new RestTemplate();
 
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
