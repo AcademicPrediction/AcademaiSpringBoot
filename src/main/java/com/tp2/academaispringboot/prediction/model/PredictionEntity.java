@@ -25,14 +25,6 @@ public class PredictionEntity {
     @Column(name = "name", length = 50, nullable = false)
     private String name;
 
-    //valores
-    @Column(name = "values_prediction", length = 50, nullable = false)
-    private String valuesPrediction;
-
-    //resultados
-    @Column(name = "results", nullable = false)
-    private String results;
-
     //fecha
     @Column(name = "date", length = 50, nullable = false)
     private Date date;

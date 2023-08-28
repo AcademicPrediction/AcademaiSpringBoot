@@ -12,7 +12,5 @@ public class PredictionResource {
 
     private Long id;
     private String name;
-    private String values;
-    private String results;
     private Date date;
 }
