@@ -1,9 +1,6 @@
 package com.tp2.academaispringboot.supervisor.controller;
 
-import com.tp2.academaispringboot.supervisor.dto.CreateSupervisorResource;
-import com.tp2.academaispringboot.supervisor.dto.LoginSupervisorResource;
-import com.tp2.academaispringboot.supervisor.dto.SupervisorResource;
-import com.tp2.academaispringboot.supervisor.dto.UpdateSupervisorResource;
+import com.tp2.academaispringboot.supervisor.dto.*;
 import com.tp2.academaispringboot.supervisor.mapping.SupervisorMapper;
 import com.tp2.academaispringboot.supervisor.model.SupervisorEntity;
 import com.tp2.academaispringboot.supervisor.service.SupervisorService;
@@ -82,6 +79,18 @@ public class SupervisorController {
         SupervisorResource supervisorResource = supervisorMapper.toResource(supervisorService.getSupervisorById(id));
         supervisorService.deleteSupervisor(id);
         return supervisorResource;
+    }
+
+    //update password
+    @Operation(summary = "Update Supervisor password", description = "Update Supervisor password")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Updated Supervisor password"),
+            @ApiResponse(responseCode = "404", description = "Supervisor password not updated")})
+    @PatchMapping("/update-password")
+    public SupervisorResource updatePassword(@RequestBody UpdatePasswordResource updatePasswordResource) {
+        SupervisorEntity supervisorEntity = supervisorService.getSupervisorByEmail(updatePasswordResource.getEmail());
+        supervisorService.updatePassword(updatePasswordResource.getPassword(), updatePasswordResource.getEmail());
+        return supervisorMapper.toResource(supervisorEntity);
     }
 
 }

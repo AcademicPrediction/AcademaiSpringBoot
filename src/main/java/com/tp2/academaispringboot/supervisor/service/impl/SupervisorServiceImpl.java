@@ -47,8 +47,18 @@ public class SupervisorServiceImpl implements SupervisorService {
     }
 
     @Override
+    public SupervisorEntity getSupervisorByEmail(String email) {
+        return supervisorEntityRepository.findByEmail(email);
+    }
+
+    @Override
     public void deleteSupervisor(Long id) {
         supervisorEntityRepository.deleteById(id);
+    }
+
+    @Override
+    public void updatePassword(String password, String email) {
+        supervisorEntityRepository.updatePassword(password, email);
     }
 
 

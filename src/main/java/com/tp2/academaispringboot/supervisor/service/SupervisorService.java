@@ -10,6 +10,7 @@ public interface SupervisorService {
     SupervisorEntity getSupervisorById(Long id);
     List<SupervisorEntity> getAllSupervisors();
     SupervisorEntity loginSupervisor(String email, String password);
-
+    SupervisorEntity getSupervisorByEmail(String email);
     void deleteSupervisor(Long id);
+    void updatePassword(String password, String email);
 }
