@@ -24,7 +24,7 @@ public class EmailController {
 
         String requestHelp = "Ayuda para " + emailResource.getEmail() + " " + emailResource.getName() + " " + emailResource.getPhone();
 
-        emailService.sendSimpleMessage("academaitesis@outlook.com", requestHelp, emailResource.getMessage());
+        emailService.sendSimpleMessage(emailResource.getEmail(), requestHelp, "http://localhost:4200/forgot-password");
         return new ResponseEntity<>("Email sent", org.springframework.http.HttpStatus.OK);
     }
 }
