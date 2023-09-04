@@ -23,7 +23,7 @@ public class EmailController {
         System.out.println(emailResource.toString());
 
         String requestHelp = "Cambio de contraseña";
-        String subjectUrl = "http://localhost:4200/forgot-password".concat(emailResource.getEmail());
+        String subjectUrl = "http://localhost:4200/forgot-password?email=".concat(emailResource.getEmail());
 
         emailService.sendSimpleMessage(emailResource.getEmail(), requestHelp, subjectUrl);
         return new ResponseEntity<>("Email sent", org.springframework.http.HttpStatus.OK);
