@@ -22,9 +22,10 @@ public class EmailController {
     public ResponseEntity<String> sendEmail(@RequestBody EmailResource emailResource) {
         System.out.println(emailResource.toString());
 
-        String requestHelp = "Ayuda para " + emailResource.getEmail() + " " + emailResource.getName() + " " + emailResource.getPhone();
+        String requestHelp = "Cambio de contraseña";
+        String subjectUrl = "http://localhost:4200/forgot-password".concat(emailResource.getEmail());
 
-        emailService.sendSimpleMessage(emailResource.getEmail(), requestHelp, "http://localhost:4200/forgot-password");
+        emailService.sendSimpleMessage(emailResource.getEmail(), requestHelp, subjectUrl);
         return new ResponseEntity<>("Email sent", org.springframework.http.HttpStatus.OK);
     }
 }
