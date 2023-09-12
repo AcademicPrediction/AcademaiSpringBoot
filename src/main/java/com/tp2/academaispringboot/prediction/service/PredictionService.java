@@ -7,5 +7,7 @@ import java.util.List;
 public interface PredictionService {
     PredictionEntity createPrediction(PredictionEntity predictionEntity, Long supervisorId);
     List<PredictionEntity> getPredictionsBySupervisorId(Long id);
+    PredictionEntity getLastPredictionBySupervisorId(Long supervisorId);
+    PredictionEntity deletePrediction(PredictionEntity predictionEntity);
 
 }

@@ -32,4 +32,15 @@ public class PredictionServiceImpl implements PredictionService {
     public List<PredictionEntity> getPredictionsBySupervisorId(Long id) {
         return predictionEntityRepository.findPredictionEntitiesBySupervisorEntityId(id);
     }
+
+    @Override
+    public PredictionEntity getLastPredictionBySupervisorId(Long supervisorId) {
+        return predictionEntityRepository.findLastEntryBySupervisorId(supervisorId);
+    }
+
+    @Override
+    public PredictionEntity deletePrediction(PredictionEntity predictionEntity) {
+        predictionEntityRepository.delete(predictionEntity);
+        return predictionEntity;
+    }
 }

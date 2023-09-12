@@ -2,6 +2,7 @@ package com.tp2.academaispringboot.prediction.controller;
 
 import com.tp2.academaispringboot.prediction.dto.CreatePredictionResource;
 import com.tp2.academaispringboot.prediction.dto.GetPredictionResource;
+import com.tp2.academaispringboot.prediction.dto.PredictionNotFoundResource;
 import com.tp2.academaispringboot.prediction.dto.PredictionResource;
 import com.tp2.academaispringboot.prediction.mapping.PredictionMapper;
 import com.tp2.academaispringboot.prediction.model.PredictionEntity;
@@ -79,8 +80,12 @@ public class PredictionController {
         );
         MultipartFile filePredict = createFile(response.getBody(), multipartFile);
 
-        s3Service.uploadFile(filePredict, CreateFileName.createFileName(predictionEntity.getId().toString(), predictionEntity.getName()));
-
+        if (response.getStatusCode().is4xxClientError() || response.getStatusCode().is5xxServerError()) {
+            predictionService.deletePrediction(predictionEntity);
+            return ResponseEntity.status(response.getStatusCode()).build();
+        } else {
+            s3Service.uploadFile(filePredict, CreateFileName.createFileName(predictionEntity.getId().toString(), predictionEntity.getName()));
+        }
 
         ByteArrayResource resource = new ByteArrayResource(Objects.requireNonNull(response.getBody()));
 
@@ -98,6 +103,27 @@ public class PredictionController {
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM_VALUE)
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + getPredictionResource.getName())
+                .body(resource);
+    }
+
+    @PostMapping("/last-prediction/{supervisorId}")
+    public ResponseEntity<Object> getLastPrediction(@PathVariable("supervisorId") Long supervisorId) throws IOException {
+        PredictionEntity predictionEntity = predictionService.getLastPredictionBySupervisorId(supervisorId);
+
+        if(predictionEntity == null){
+            PredictionNotFoundResource responseMap = PredictionNotFoundResource.builder()
+                    .message("No prediction found for this supervisor")
+                    .build();
+
+            return new ResponseEntity<>(responseMap, HttpStatus.NOT_FOUND);
+        }
+
+        byte[] data = s3Service.downloadFile(CreateFileName.createFileName(predictionEntity.getId().toString(), predictionEntity.getName()));
+        ByteArrayResource resource = new ByteArrayResource(data);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM_VALUE)
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + predictionEntity.getName())
                 .body(resource);
     }
 
