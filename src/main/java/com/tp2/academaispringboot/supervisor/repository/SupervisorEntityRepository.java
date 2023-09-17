@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface SupervisorEntityRepository extends JpaRepository<SupervisorEntity, Long> {
     SupervisorEntity findByEmailAndPassword(String email, String password);
-    SupervisorEntity findByEmail(String email);
+    SupervisorEntity findByEmail (String email);
     @Modifying
     @Transactional
     @Query(value = "UPDATE supervisor_entity SET password = ?1 WHERE email = ?2", nativeQuery = true)

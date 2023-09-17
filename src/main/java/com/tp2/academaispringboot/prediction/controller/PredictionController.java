@@ -72,20 +72,21 @@ public class PredictionController {
         body.add("file", multipartFile.getResource());
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, new HttpHeaders());
 
-        ResponseEntity<byte[]> response = restTemplate.exchange(
-                url,
-                HttpMethod.POST,
-                requestEntity,
-                byte[].class
-        );
-        MultipartFile filePredict = createFile(response.getBody(), multipartFile);
-
-        if (response.getStatusCode().is4xxClientError() || response.getStatusCode().is5xxServerError()) {
+        ResponseEntity<byte[]> response;
+        try {
+            response = restTemplate.exchange(
+                    url,
+                    HttpMethod.POST,
+                    requestEntity,
+                    byte[].class
+            );
+        } catch (Exception e) {
             predictionService.deletePrediction(predictionEntity);
-            return ResponseEntity.status(response.getStatusCode()).build();
-        } else {
-            s3Service.uploadFile(filePredict, CreateFileName.createFileName(predictionEntity.getId().toString(), predictionEntity.getName()));
+            throw new RuntimeException("Error uploading file to S3", e);
         }
+
+        MultipartFile filePredict = createFile(response.getBody(), multipartFile);
+        s3Service.uploadFile(filePredict, CreateFileName.createFileName(predictionEntity.getId().toString(), predictionEntity.getName()));
 
         ByteArrayResource resource = new ByteArrayResource(Objects.requireNonNull(response.getBody()));
 
