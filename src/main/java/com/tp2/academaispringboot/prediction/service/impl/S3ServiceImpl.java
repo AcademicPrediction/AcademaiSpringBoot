@@ -63,6 +63,7 @@ public class S3ServiceImpl implements S3Service {
             s3Client.headObject(headObjectRequest);
             return true;
         } catch (S3Exception e) {
+            e.getStackTrace();
             if (e.statusCode() == 404) {
                 return false;
             }
